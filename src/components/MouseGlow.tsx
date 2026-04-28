@@ -27,7 +27,7 @@ export default function MouseGlow() {
 
   return (
     <div
-      className="fixed pointer-events-none -z-10 transition-opacity duration-300 ease-in-out"
+      className="hidden md:block fixed pointer-events-none -z-10 transition-opacity duration-300 ease-in-out"
       style={{
         left: position.x,
         top: position.y,

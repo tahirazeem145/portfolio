@@ -45,7 +45,7 @@ const AchievementsSection = () => {
 
   return (
     <section id="achievements" ref={sectionRef} className="py-24 relative z-10">
-      <div className="max-w-6xl mx-auto px-6 w-full pl-8 md:pl-20">
+      <div className="max-w-6xl mx-auto px-6 w-full md:pl-20 md:pr-6">
         <div className="ach-heading mb-16">
           <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">
             <span className="gradient-text">Achievements</span>

@@ -11,6 +11,9 @@ const TiltCard = ({ project }: { project: any }) => {
   const [style, setStyle] = useState({});
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    // Disable on touch devices
+    if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) return;
+
     const card = e.currentTarget;
     const box = card.getBoundingClientRect();
     const x = e.clientX - box.left;
@@ -37,7 +40,7 @@ const TiltCard = ({ project }: { project: any }) => {
 
   return (
     <div 
-      className="project-card glass p-8 rounded-3xl relative z-10 group"
+      className="project-card glass p-6 md:p-8 rounded-3xl relative z-10 group"
       style={style}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -45,16 +48,16 @@ const TiltCard = ({ project }: { project: any }) => {
       {/* Glow effect behind card */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl -z-10 blur-xl" />
       
-      <div className="flex justify-between items-start mb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4">
         <div>
-          <h3 className="text-3xl font-bold text-white mb-2">{project.title}</h3>
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">{project.title}</h3>
           <p className="text-blue-400 font-medium italic">"{project.tagline}"</p>
         </div>
         <a 
           href={project.link} 
           target="_blank" 
           rel="noreferrer"
-          className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-all border border-white/10 hover:border-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)] hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+          className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-all border border-white/10 hover:border-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)] hover:shadow-[0_0_20px_rgba(59,130,246,0.6)] shrink-0"
         >
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -73,7 +76,7 @@ const TiltCard = ({ project }: { project: any }) => {
         <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
           <Sparkles size={16} className="text-purple-400" /> Features
         </h4>
-        <ul className="list-disc list-inside text-gray-400 space-y-1">
+        <ul className="list-disc list-inside text-gray-400 space-y-1 text-sm sm:text-base">
           {project.features.map((feat: string, i: number) => (
             <li key={i}>{feat}</li>
           ))}
@@ -152,7 +155,7 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" ref={sectionRef} className="py-24 min-h-screen relative z-10">
-      <div className="max-w-6xl mx-auto px-6 w-full pl-8 md:pl-20">
+      <div className="max-w-6xl mx-auto px-6 w-full md:pl-20 md:pr-6">
         <div className="project-heading mb-16">
           <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">
             My <span className="gradient-text">Projects</span>

@@ -121,10 +121,10 @@ const CanvasSequence = () => {
 
       {/* Optional: Overlay Text/UI that could fade in during scroll */}
       <div className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center z-10 text-white">
-        <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter mix-blend-difference opacity-50">
+        <h1 className="text-5xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter mix-blend-difference opacity-50 text-center px-4">
           TAHIR AZEEM
         </h1>
-        <p className="mt-4 text-xl md:text-2xl font-light tracking-wide mix-blend-difference opacity-70">
+        <p className="mt-4 text-lg sm:text-xl md:text-2xl font-light tracking-wide mix-blend-difference opacity-70 text-center">
           Scroll to explore
         </p>
       </div>

@@ -12,6 +12,14 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (max-width: 640px) {
+    html {
+      font-size: 14px;
+    }
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-text-primary);

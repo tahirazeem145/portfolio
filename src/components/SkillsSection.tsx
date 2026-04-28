@@ -78,7 +78,7 @@ const SkillsSection = () => {
 
   return (
     <section id="skills" ref={sectionRef} className="py-24 min-h-screen relative z-10">
-      <div className="max-w-6xl mx-auto px-6 w-full pl-8 md:pl-20">
+      <div className="max-w-6xl mx-auto px-6 w-full md:pl-20 md:pr-6">
         <div className="skill-heading mb-16">
           <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">
             My <span className="gradient-text">Skills</span>
@@ -102,7 +102,7 @@ const SkillsSection = () => {
                       <span className="text-gray-300 font-medium">{tool.name}</span>
                       <span className="text-blue-400 text-sm">{tool.level}%</span>
                     </div>
-                    <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 sm:h-2 w-full bg-white/5 rounded-full overflow-hidden">
                       <div
                         className="skill-bar-fill h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full box-glow"
                         data-width={`${tool.level}%`}

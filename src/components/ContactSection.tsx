@@ -56,11 +56,11 @@ const ContactSection = () => {
           </a>
         </div>
 
-        <div className="contact-reveal flex justify-center gap-6 mb-24">
-          <a href="mailto:tahirazeems145s@gmail.com" className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-colors hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+        <div className="contact-reveal flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-24">
+          <a href="mailto:tahirazeems145s@gmail.com" className="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-colors hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
             Hire Me
           </a>
-          <a href="https://www.linkedin.com/in/tahirazeem-r" target="_blank" rel="noreferrer" className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-colors hover:scale-105 active:scale-95">
+          <a href="https://www.linkedin.com/in/tahirazeem-r" target="_blank" rel="noreferrer" className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-colors hover:scale-105 active:scale-95">
             Let's Talk
           </a>
         </div>
