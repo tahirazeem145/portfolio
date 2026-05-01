@@ -13,12 +13,14 @@ import MouseGlow from "@/components/MouseGlow";
 
 // Ensure the WebGL canvas is NEVER server-side rendered
 const FluidBackground = dynamic(() => import("@/components/FluidBackground"), { ssr: false });
+const ParticlesBackground = dynamic(() => import("@/components/ParticlesBackground"), { ssr: false });
 
 export default function Home() {
   return (
     <main className="min-h-screen text-white selection:bg-blue-500 selection:text-white relative overflow-x-hidden">
       {/* Interactive Backgrounds */}
       <FluidBackground />
+      <ParticlesBackground />
       <MouseGlow />
 
       {/* Fixed UI Elements */}
