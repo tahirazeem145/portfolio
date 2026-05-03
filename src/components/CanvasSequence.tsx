@@ -40,13 +40,22 @@ const CanvasSequence = () => {
       if (imagesLoaded < FRAME_COUNT || !canvasRef.current) return;
 
       const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
+      const context = canvas.getContext("2d", { alpha: false }); // Optimization
       if (!context) return;
 
-      // Initial draw
-      renderFrame(0);
-
       const animationState = { frame: 0 };
+
+      // Set initial canvas size correctly
+      const resizeCanvas = () => {
+        if (!canvas) return;
+        const { width, height } = canvas.getBoundingClientRect();
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        renderFrame(animationState.frame);
+      };
+
+      // Initial size
+      resizeCanvas();
 
       // Set up ScrollTrigger
       ScrollTrigger.create({
@@ -54,24 +63,19 @@ const CanvasSequence = () => {
         start: "top top",
         end: "+=400%", // 4 screens of scrolling
         pin: true,
-        scrub: 0.5, // smooth scrubbing
-        animation: gsap.to(animationState, {
-          frame: FRAME_COUNT - 1,
-          snap: "frame",
-          ease: "none",
-          onUpdate: () => renderFrame(animationState.frame),
-        }),
+        scrub: 1, // Increased scrub for smoother "luxurious" feel
+        onUpdate: (self) => {
+          // Calculate frame based on progress to be more precise
+          const newFrame = Math.floor(self.progress * (FRAME_COUNT - 1));
+          if (newFrame !== animationState.frame) {
+            animationState.frame = newFrame;
+            renderFrame(newFrame);
+          }
+        }
       });
 
       function renderFrame(index: number) {
         if (!canvas || !context || !images[index]) return;
-
-        // Ensure canvas dimensions match display size
-        const { width, height } = canvas.getBoundingClientRect();
-        if (canvas.width !== width || canvas.height !== height) {
-          canvas.width = width;
-          canvas.height = height;
-        }
 
         const img = images[index];
 
@@ -80,14 +84,16 @@ const CanvasSequence = () => {
         const x = canvas.width / 2 - (img.width / 2) * scale;
         const y = canvas.height / 2 - (img.height / 2) * scale;
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(img, x, y, img.width * scale, img.height * scale);
       }
 
-      // Handle resize
-      window.addEventListener("resize", () => renderFrame(animationState.frame));
+      // Handle resize using ScrollTrigger's refresh for better sync
+      ScrollTrigger.addEventListener("refresh", resizeCanvas);
+      window.addEventListener("resize", resizeCanvas);
+
       return () => {
-        window.removeEventListener("resize", () => renderFrame(animationState.frame));
+        ScrollTrigger.removeEventListener("refresh", resizeCanvas);
+        window.removeEventListener("resize", resizeCanvas);
       };
     },
     { dependencies: [imagesLoaded], scope: containerRef }

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink, Sparkles } from "lucide-react";
+import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
 
 // Tilt Card Component
 const TiltCard = ({ project }: { project: any }) => {
@@ -154,7 +155,8 @@ const ProjectsSection = () => {
   ];
 
   return (
-    <section id="projects" ref={sectionRef} className="py-24 min-h-screen relative z-10">
+    <section id="projects" ref={sectionRef} className="py-24 min-h-screen relative z-10 overflow-hidden">
+      <InteractiveNeuralVortex position="absolute" opacity={0.3} />
       <div className="max-w-6xl mx-auto px-6 w-full md:pl-20 md:pr-6">
         <div className="project-heading mb-16">
           <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">

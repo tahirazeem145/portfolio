@@ -110,7 +110,7 @@ export default function FluidBackground() {
       <div className="fixed inset-0 w-full h-full -z-30 bg-black" />
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 w-full h-full -z-20 pointer-events-none md:pointer-events-auto"
+        className="fixed inset-0 w-full h-full -z-20 pointer-events-none"
         style={{ 
           filter: "blur(20px) contrast(30)", 
           mixBlendMode: "screen"

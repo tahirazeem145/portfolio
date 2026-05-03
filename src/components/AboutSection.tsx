@@ -5,6 +5,7 @@ import { GraduationCap, MapPin, Building, Briefcase, Calendar } from "lucide-rea
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -57,7 +58,8 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" ref={sectionRef} className="py-24 min-h-screen flex items-center relative overflow-hidden bg-grid">
+    <section id="about" ref={sectionRef} className="py-24 min-h-screen flex items-center relative overflow-hidden">
+      <InteractiveNeuralVortex position="absolute" opacity={0.4} />
       <div className="max-w-6xl mx-auto px-6 w-full relative z-10 md:pl-20">
         <div ref={headingRef} className="mb-16">
           <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">

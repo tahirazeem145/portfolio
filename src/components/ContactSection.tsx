@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail } from "lucide-react";
+import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
 
 const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -30,7 +31,8 @@ const ContactSection = () => {
   }, { scope: sectionRef });
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 relative z-10 border-t border-white/10 bg-black/50">
+    <section id="contact" ref={sectionRef} className="py-24 relative z-10 border-t border-white/10 overflow-hidden">
+      <InteractiveNeuralVortex position="absolute" opacity={0.5} />
       <div className="max-w-4xl mx-auto px-6 w-full text-center">
         <div className="contact-reveal mb-8">
           <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">

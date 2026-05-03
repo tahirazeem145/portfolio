@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
 
 const SkillsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -77,7 +78,8 @@ const SkillsSection = () => {
   ];
 
   return (
-    <section id="skills" ref={sectionRef} className="py-24 min-h-screen relative z-10">
+    <section id="skills" ref={sectionRef} className="py-24 min-h-screen relative z-10 overflow-hidden">
+      <InteractiveNeuralVortex position="absolute" opacity={0.3} />
       <div className="max-w-6xl mx-auto px-6 w-full md:pl-20 md:pr-6">
         <div className="skill-heading mb-16">
           <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">
