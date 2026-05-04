@@ -104,7 +104,7 @@ const SkillsSection = () => {
                       <span className="text-gray-300 font-medium">{tool.name}</span>
                       <span className="text-blue-400 text-sm">{tool.level}%</span>
                     </div>
-                    <div className="h-1.5 sm:h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 sm:h-2 w-full bg-white/5 rounded-full overflow-hidden shimmer-card">
                       <div
                         className="skill-bar-fill h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full box-glow"
                         data-width={`${tool.level}%`}
@@ -124,7 +124,7 @@ const SkillsSection = () => {
               </h3>
               <div className="flex flex-wrap gap-4">
                 {programming.map((lang, idx) => (
-                  <div key={idx} className="skill-pill glass px-6 py-3 rounded-full text-white font-medium border border-blue-500/30 hover:border-blue-500 transition-colors shadow-[0_0_15px_rgba(59,130,246,0.1)] hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+                  <div key={idx} className="skill-pill glass shimmer-card px-6 py-3 rounded-full text-white font-medium border border-blue-500/30 hover:border-blue-500 transition-colors shadow-[0_0_15px_rgba(59,130,246,0.1)] hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]">
                     {lang}
                   </div>
                 ))}
@@ -137,7 +137,7 @@ const SkillsSection = () => {
               </h3>
               <div className="flex flex-wrap gap-4">
                 {frameworks.map((fw, idx) => (
-                  <div key={idx} className="skill-pill glass px-6 py-3 rounded-full text-white font-medium border border-purple-500/30 hover:border-purple-500 transition-colors shadow-[0_0_15px_rgba(139,92,246,0.1)] hover:shadow-[0_0_20px_rgba(139,92,246,0.4)]">
+                  <div key={idx} className="skill-pill glass shimmer-card px-6 py-3 rounded-full text-white font-medium border border-purple-500/30 hover:border-purple-500 transition-colors shadow-[0_0_15px_rgba(139,92,246,0.1)] hover:shadow-[0_0_20px_rgba(139,92,246,0.4)]">
                     {fw}
                   </div>
                 ))}

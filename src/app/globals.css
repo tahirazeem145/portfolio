@@ -51,6 +51,35 @@
   .gradient-text {
     @apply bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent;
   }
+
+  .shimmer-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transform: skewX(-25deg);
+    animation: shimmer-swipe 6s infinite ease-in-out;
+    pointer-events: none;
+  }
+
+  @keyframes shimmer-swipe {
+    0% { left: -150%; }
+    50% { left: 150%; }
+    100% { left: -150%; }
+  }
 }
 
 /* Custom Scrollbar */

@@ -55,7 +55,7 @@ const AchievementsSection = () => {
           </p>
         </div>
 
-        <div className="ach-card glass p-8 md:p-12 rounded-3xl relative overflow-hidden group border-purple-500/30 hover:border-purple-500/60 transition-colors">
+        <div className="ach-card glass shimmer-card p-8 md:p-12 rounded-3xl relative overflow-hidden group border-purple-500/30 hover:border-purple-500/60 transition-colors">
           <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-colors" />
           
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">

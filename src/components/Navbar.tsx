@@ -39,7 +39,7 @@ const Navbar = () => {
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       }`}
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 mt-2 sm:mt-4 glass rounded-3xl sm:rounded-full mx-2 sm:mx-auto">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 mt-2 sm:mt-4 glass shimmer-card rounded-3xl sm:rounded-full mx-2 sm:mx-auto">
         <div className="flex items-center justify-between">
           <a href="#" className="text-xl font-bold text-white tracking-wider">
             TAR<span className="text-blue-500">.</span>

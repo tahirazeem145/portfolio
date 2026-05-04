@@ -41,7 +41,7 @@ const TiltCard = ({ project }: { project: any }) => {
 
   return (
     <div 
-      className="project-card glass p-6 md:p-8 rounded-3xl relative z-10 group"
+      className="project-card glass shimmer-card p-6 md:p-8 rounded-3xl relative z-10 group"
       style={style}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -88,7 +88,7 @@ const TiltCard = ({ project }: { project: any }) => {
         <h4 className="text-white font-semibold mb-3">Tech Stack</h4>
         <div className="flex flex-wrap gap-2">
           {project.tech.map((tech: string, i: number) => (
-            <span key={i} className="text-xs font-medium px-3 py-1 bg-white/5 border border-white/10 rounded-full text-blue-200">
+            <span key={i} className="text-xs font-medium px-3 py-1 bg-white/5 border border-white/10 rounded-full text-blue-200 shimmer-card">
               {tech}
             </span>
           ))}

@@ -71,7 +71,7 @@ const AboutSection = () => {
         </div>
 
         <div ref={contentRef} className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="about-item glass p-8 md:p-12 rounded-3xl relative overflow-hidden group">
+          <div className="about-item glass shimmer-card p-8 md:p-12 rounded-3xl relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-light relative z-10">
               Hey! I'm <span className="text-white font-semibold">Tahir Azeem R</span>, a 19-year-old passionate Web Developer, <span className="text-blue-400 font-semibold">Co-founder of BOCT</span>, and 2nd year B.E. CSE student at JJCET, Trichy. 
@@ -86,7 +86,7 @@ const AboutSection = () => {
             {quickInfo.map((info, idx) => (
               <div 
                 key={idx} 
-                className={`about-item glass p-6 rounded-2xl flex flex-col gap-3 glass-hover hover:-translate-y-1 transition-transform ${idx === 4 ? 'sm:col-span-2' : ''}`}
+                className={`about-item glass shimmer-card p-6 rounded-2xl flex flex-col gap-3 glass-hover hover:-translate-y-1 transition-transform ${idx === 4 ? 'sm:col-span-2' : ''}`}
               >
                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
                   {info.icon}
