@@ -84,7 +84,7 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
         {/* Cyber Portrait */}
         <div 
           ref={imgRef}
-          className="relative w-40 h-40 md:w-56 md:h-56 mb-12 rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] group"
+          className="relative w-40 h-40 md:w-56 md:h-56 mb-12 rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] group animate-blink"
         >
           <div className="absolute inset-0 bg-blue-500/20 mix-blend-overlay z-10" />
           <Image 
@@ -169,6 +169,13 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
         }
         .animate-scan {
           animation: scan 3s linear infinite;
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; filter: brightness(1); }
+          50% { opacity: 0.8; filter: brightness(1.2); }
+        }
+        .animate-blink {
+          animation: blink 1.5s ease-in-out infinite;
         }
       `}</style>
     </div>
