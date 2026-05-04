@@ -330,7 +330,9 @@ export function CinematicFooter() {
         }
       };
 
-      wrapperRef.current.addEventListener("mousemove", handleFooterHover);
+      if (wrapperRef.current) {
+        wrapperRef.current.addEventListener("mousemove", handleFooterHover);
+      }
       
       // We don't need an explicit removeEventListener because gsap.context() 
       // can automatically revert standard things, but for standard DOM events:
