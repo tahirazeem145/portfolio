@@ -11,13 +11,13 @@ const SmoothScroll = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.8, // Increased for ultra-smooth feel
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.8, // Slightly less sensitive for more control
+      touchMultiplier: 1.5,
       infinite: false,
     });
 

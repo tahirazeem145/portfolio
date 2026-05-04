@@ -366,10 +366,10 @@ export function CinematicFooter() {
           <div ref={gridRef} className="footer-bg-grid absolute -top-20 -bottom-20 -left-20 -right-20 z-0 pointer-events-none" />
 
           {/* Giant background text replaced with TextParticle */}
-          <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-40">
+          <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-40 flex items-center justify-center">
             <TextParticle 
               text="TAHIR"
-              fontSize={240}
+              fontSize={typeof window !== 'undefined' && window.innerWidth < 768 ? 80 : 240}
               fontFamily="Plus Jakarta Sans, sans-serif"
               particleColor="#ffffff"
               particleSize={1.5}

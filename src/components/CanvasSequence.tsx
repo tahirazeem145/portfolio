@@ -64,7 +64,7 @@ const CanvasSequence = () => {
         start: "top top",
         end: "+=400%", // 4 screens of scrolling
         pin: true,
-        scrub: 1, // Increased scrub for smoother "luxurious" feel
+        scrub: 2, // Increased scrub for ultra-smooth "luxurious" feel and better frame blending
         onUpdate: (self) => {
           // Calculate frame based on progress to be more precise
           const newFrame = Math.floor(self.progress * (FRAME_COUNT - 1));
@@ -115,7 +115,7 @@ const CanvasSequence = () => {
 
       {/* Optional: Overlay Text/UI that could fade in during scroll */}
       <div className="absolute inset-0 pointer-events-none flex flex-col justify-center items-center z-10 text-white">
-        <h1 className="text-5xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter mix-blend-difference opacity-50 text-center px-4">
+        <h1 className="text-3xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter mix-blend-difference opacity-50 text-center px-4">
           TAHIR AZEEM
         </h1>
         <p className="mt-4 text-lg sm:text-xl md:text-2xl font-light tracking-wide mix-blend-difference opacity-70 text-center">
