@@ -193,7 +193,7 @@ const InteractiveNeuralVortex = ({
         height: "100%",
         pointerEvents: "none",
         opacity: opacity,
-        zIndex: -1,
+        zIndex: 0,
       }}
     />
   );

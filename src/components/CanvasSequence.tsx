@@ -102,7 +102,7 @@ const CanvasSequence = () => {
   );
 
   return (
-    <div ref={containerRef} className="relative w-full h-screen bg-black">
+    <div ref={containerRef} className="relative w-full h-screen">
       <Preloader 
         progress={(imagesLoaded / FRAME_COUNT) * 100} 
         isLoaded={imagesLoaded === FRAME_COUNT} 
