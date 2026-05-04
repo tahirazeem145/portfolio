@@ -91,7 +91,7 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
             src="/img/cyber_portrait.png" 
             alt="Cyber Portrait" 
             fill
-            className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            className="object-cover"
           />
           {/* Scanning Line Animation */}
           <div className="absolute top-0 left-0 w-full h-[2px] bg-blue-400/50 shadow-[0_0_15px_rgba(96,165,250,0.8)] z-20 animate-scan" />
