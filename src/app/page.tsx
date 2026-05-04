@@ -63,11 +63,10 @@ export default function Home() {
             <ContactSection />
           </div>
         </div>
+        
+        {/* The Cinematic Footer is injected here */}
+        <CinematicFooter />
       </main>
-
-      {/* The Cinematic Footer is injected here */}
-      <CinematicFooter />
-      
     </div>
   );
 }

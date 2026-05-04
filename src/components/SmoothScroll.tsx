@@ -32,7 +32,16 @@ const SmoothScroll = () => {
     // Disable gsap lag smoothing for better sync
     gsap.ticker.lagSmoothing(0);
 
+    // Initial refresh
+    ScrollTrigger.refresh();
+
+    // Delayed refresh to handle dynamic content layout
+    const timeoutId = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
     return () => {
+      clearTimeout(timeoutId);
       lenis.destroy();
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
