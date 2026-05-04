@@ -59,14 +59,14 @@ const CanvasSequence = () => {
       resizeCanvas();
 
       // Set up ScrollTrigger
-      ScrollTrigger.create({
+      const st = ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top top",
         end: "+=400%", // 4 screens of scrolling
         pin: true,
-        scrub: 2, // Increased scrub for ultra-smooth "luxurious" feel and better frame blending
+        scrub: 2, 
+        anticipatePin: 1,
         onUpdate: (self) => {
-          // Calculate frame based on progress to be more precise
           const newFrame = Math.floor(self.progress * (FRAME_COUNT - 1));
           if (newFrame !== animationState.frame) {
             animationState.frame = newFrame;
@@ -93,6 +93,7 @@ const CanvasSequence = () => {
       window.addEventListener("resize", resizeCanvas);
 
       return () => {
+        st.kill();
         ScrollTrigger.removeEventListener("refresh", resizeCanvas);
         window.removeEventListener("resize", resizeCanvas);
       };

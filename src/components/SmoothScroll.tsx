@@ -19,6 +19,7 @@ const SmoothScroll = () => {
       wheelMultiplier: 0.8, // Slightly less sensitive for more control
       touchMultiplier: 1.5,
       infinite: false,
+      syncTouch: true, // Crucial for mobile scroll sync
     });
 
     // Connect Lenis to ScrollTrigger

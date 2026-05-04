@@ -51,7 +51,10 @@ const InteractiveNeuralVortex = ({
         vec2 sine_acc = vec2(0.);
         vec2 res = vec2(0.);
         float scale = 8.;
-        for (int j = 0; j < 15; j++) {
+        int iterations = 15;
+        if (u_ratio < 1.0) iterations = 10; // Mobile optimization
+        for (int j = 0; j < 20; j++) {
+          if (j >= iterations) break;
           uv = rotate(uv, 1.);
           sine_acc = rotate(sine_acc, 1.);
           vec2 layer = uv * scale + float(j) + sine_acc - t;
@@ -190,7 +193,7 @@ const InteractiveNeuralVortex = ({
         height: "100%",
         pointerEvents: "none",
         opacity: opacity,
-        zIndex: 0,
+        zIndex: -1,
       }}
     />
   );

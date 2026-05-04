@@ -12,15 +12,15 @@ import ContactSection from "@/components/ContactSection";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const ParticlesBackground = dynamic(() => import("@/components/ParticlesBackground"), { ssr: false });
+import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
 
 export default function Home() {
   return (
-    <div className="relative w-full min-h-screen font-sans overflow-x-hidden bg-black">
+    <div className="relative w-full min-h-screen font-sans overflow-x-hidden">
       <SmoothScroll />
       
-      {/* Interactive Backgrounds - outside main to avoid stacking context trap */}
-      <ParticlesBackground />
+      {/* Global Background */}
+      <InteractiveNeuralVortex />
 
       <main className="relative z-10 w-full text-white selection:bg-blue-500 selection:text-white pb-24">
         {/* Fixed UI Elements */}
