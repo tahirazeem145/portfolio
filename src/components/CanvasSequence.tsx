@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Preloader from "@/components/ui/preloader";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -101,23 +102,10 @@ const CanvasSequence = () => {
 
   return (
     <div ref={containerRef} className="relative w-full h-screen bg-black">
-      {/* Loading State Overlay */}
-      {imagesLoaded < FRAME_COUNT && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black text-white flex-col">
-          <div className="text-2xl font-bold mb-4 tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">
-            LOADING ASSETS
-          </div>
-          <div className="w-64 h-1 bg-gray-800 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-white transition-all duration-300"
-              style={{ width: `${(imagesLoaded / FRAME_COUNT) * 100}%` }}
-            />
-          </div>
-          <div className="mt-2 text-sm text-gray-500">
-            {Math.round((imagesLoaded / FRAME_COUNT) * 100)}%
-          </div>
-        </div>
-      )}
+      <Preloader 
+        progress={(imagesLoaded / FRAME_COUNT) * 100} 
+        isLoaded={imagesLoaded === FRAME_COUNT} 
+      />
 
       {/* Canvas */}
       <canvas
