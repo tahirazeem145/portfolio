@@ -8,6 +8,7 @@ import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import AchievementsSection from "@/components/AchievementsSection";
+import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -41,6 +42,11 @@ export default function Home() {
           
           <div className="relative border-b border-white/5">
             <AboutSection />
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+          </div>
+
+          <div className="relative border-b border-white/5">
+            <ExperienceSection />
             <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent pointer-events-none" />
           </div>
           

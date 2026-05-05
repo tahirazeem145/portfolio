@@ -151,6 +151,22 @@ const ProjectsSection = () => {
       tech: ["Lovable", "ChatGPT", "API Integration"],
       features: ["Resume analyser & scorer", "Job description matcher", "AI mock interview", "Skill roadmap generator"],
       link: "https://hiremindai.lovable.app/",
+    },
+    {
+      title: "Tomorrow's Code",
+      tagline: "The Pulse of AI Development.",
+      description: "A newsletter dedicated to exploring the intersection of AI and software engineering. Covering everything from LLM trends to the 'Vibe Coding' movement.",
+      tech: ["Substack", "Technical Writing", "AI Research"],
+      features: ["Weekly tech insights", "AI tool reviews", "Startup ecosystem analysis"],
+      link: "https://linkedin.com/in/tahirazeem-r",
+    },
+    {
+      title: "Cinematic Portfolio",
+      tagline: "Where Code Meets Art.",
+      description: "A high-performance, cinematic portfolio built with Next.js and GSAP. Featuring glassmorphism, 3D-inspired animations, and an interactive neural vortex background.",
+      tech: ["Next.js", "GSAP", "Tailwind CSS", "Framer Motion"],
+      features: ["Dynamic scroll animations", "Interactive background", "Mobile-first design"],
+      link: "#",
     }
   ];
 

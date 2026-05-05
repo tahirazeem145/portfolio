@@ -65,7 +65,7 @@ const AboutSection = () => {
             About <span className="gradient-text">Me</span>
           </h2>
           <p className="text-xl text-gray-400 font-light tracking-wide uppercase">
-            "Code. Create. Conquer."
+            "I build AI-powered web apps that solve real problems — not just tutorial clones."
           </p>
         </div>
 
@@ -73,11 +73,11 @@ const AboutSection = () => {
           <div className="about-item glass shimmer-card p-8 md:p-12 rounded-3xl relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-light relative z-10">
-              Hey! I'm <span className="text-white font-semibold">Tahir Azeem R</span>, a 19-year-old passionate Web Developer, <span className="text-blue-400 font-semibold">Co-founder of BOCT</span>, and 2nd year B.E. CSE student at JJCET, Trichy. 
+              Hey! I'm <span className="text-white font-semibold">Tahir Azeem</span>, a passionate AI-powered Web Developer and <span className="text-blue-400 font-semibold">Co-founder of BOCT</span>. Currently pursuing my engineering degree at JJCET, Trichy. 
               <br /><br />
-              I love building websites that are not just functional but visually stunning. My goal is to grow, innovate and land a role at a top tech company where I can make a real impact. 
+              I'm deeply committed to the <span className="text-purple-400 font-medium">"build in public"</span> philosophy, sharing my journey of creating real-world applications that leverage the latest in AI technology. 
               <br /><br />
-              <span className="text-white italic">I don't just learn technology — I build with it.</span>
+              <span className="text-white italic">I don't just follow tutorials — I innovate and solve real problems through code.</span>
             </p>
           </div>
 

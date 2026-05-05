@@ -55,21 +55,40 @@ const AchievementsSection = () => {
           </p>
         </div>
 
-        <div className="ach-card glass shimmer-card p-8 md:p-12 rounded-3xl relative overflow-hidden group border-purple-500/30 hover:border-purple-500/60 transition-colors">
-          <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-colors" />
-          
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 p-1 shrink-0 shadow-[0_0_30px_rgba(250,204,21,0.3)]">
-              <div className="w-full h-full bg-black rounded-full flex items-center justify-center">
-                <Trophy size={40} className="text-yellow-400" />
+        <div className="grid gap-8">
+          {/* SIH Achievement */}
+          <div className="ach-card glass shimmer-card p-8 md:p-12 rounded-3xl relative overflow-hidden group border-purple-500/30 hover:border-purple-500/60 transition-colors">
+            <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-colors" />
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 p-1 shrink-0 shadow-[0_0_30px_rgba(250,204,21,0.3)]">
+                <div className="w-full h-full bg-black rounded-full flex items-center justify-center">
+                  <Trophy size={40} className="text-yellow-400" />
+                </div>
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-3xl font-bold text-white mb-4">Smart India Hackathon (SIH)</h3>
+                <p className="text-lg text-gray-300 leading-relaxed font-light">
+                  Participated in India's biggest national level hackathon, competing against thousands of students with an innovative tech solution. A phenomenal experience of rapid prototyping and teamwork.
+                </p>
               </div>
             </div>
-            
-            <div className="text-center md:text-left">
-              <h3 className="text-3xl font-bold text-white mb-4">Smart India Hackathon (SIH)</h3>
-              <p className="text-lg text-gray-300 leading-relaxed font-light">
-                Participated in India's biggest national level hackathon, competing against thousands of students across the country with an innovative tech solution. It was a phenomenal experience of rapid prototyping, teamwork, and pushing the boundaries of what's possible in 36 hours.
-              </p>
+          </div>
+
+          {/* LinkedIn Achievement */}
+          <div className="ach-card glass shimmer-card p-8 md:p-12 rounded-3xl relative overflow-hidden group border-blue-500/30 hover:border-blue-500/60 transition-colors">
+            <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl group-hover:bg-blue-500/40 transition-colors" />
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 p-1 shrink-0 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+                <div className="w-full h-full bg-black rounded-full flex items-center justify-center font-bold text-2xl text-blue-400">
+                  5K+
+                </div>
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-3xl font-bold text-white mb-4">LinkedIn Community</h3>
+                <p className="text-lg text-gray-300 leading-relaxed font-light">
+                  Built a professional network of over 5,000 followers, sharing insights on AI, web development, and the "build in public" journey. Engaging with a global audience of developers and innovators.
+                </p>
+              </div>
             </div>
           </div>
         </div>

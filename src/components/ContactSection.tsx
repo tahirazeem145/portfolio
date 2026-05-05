@@ -69,7 +69,7 @@ const ContactSection = () => {
 
       <div className="absolute bottom-0 left-0 right-0 py-6 text-center border-t border-white/5">
         <p className="text-gray-500 text-sm tracking-widest uppercase">
-          Built with <span className="text-blue-500">💙</span> by Tahir Azeem R
+          Built with <span className="text-blue-500">💙</span> by Tahir Azeem
         </p>
       </div>
     </section>

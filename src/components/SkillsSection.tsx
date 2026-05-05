@@ -61,7 +61,7 @@ const SkillsSection = () => {
     });
   }, { scope: sectionRef });
 
-  const programming = ["Python", "Java", "C", "Java + DSA"];
+  const programming = ["Python", "Java", "C", "JavaScript", "TypeScript"];
   const aiTools = [
     { name: "ChatGPT", level: 95 },
     { name: "Gemini", level: 75 },
@@ -70,11 +70,12 @@ const SkillsSection = () => {
     { name: "Replit AI", level: 70 },
     { name: "Google Flow", level: 65 },
   ];
-  const frameworks = ["Lovable", "Replit", "Antigravity"];
+  const frameworks = ["Next.js", "React", "Tailwind CSS", "Framer Motion", "GSAP"];
   const otherTools = [
     { name: "VS Code", level: 90 },
-    { name: "GitHub", level: 40 },
-    { name: "Canva", level: 70 },
+    { name: "GitHub", level: 85 },
+    { name: "Build in Public", level: 95 },
+    { name: "Technical Writing", level: 90 },
   ];
 
   return (
