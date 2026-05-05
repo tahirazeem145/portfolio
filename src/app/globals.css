@@ -33,7 +33,7 @@
 
 @layer utilities {
   .glass {
-    @apply bg-black/40 backdrop-blur-xl border border-white/10 shadow-xl;
+    @apply bg-black/10 backdrop-blur-lg border border-white/10 shadow-xl;
   }
   
   .glass-hover {
