@@ -26,7 +26,7 @@ const InteractiveNeuralVortex = ({
     if (!gl) return;
 
     const vsSource = `
-      precision mediump float;
+      precision highp float;
       attribute vec2 a_position;
       varying vec2 vUv;
       void main() {
@@ -36,7 +36,7 @@ const InteractiveNeuralVortex = ({
     `;
 
     const fsSource = `
-      precision mediump float;
+      precision highp float;
       varying vec2 vUv;
       uniform float u_time;
       uniform float u_ratio;
@@ -77,9 +77,9 @@ const InteractiveNeuralVortex = ({
         noise += pow(noise, 10.);
         noise = max(.0, noise - .5);
         noise *= (1. - length(vUv - .5));
-        color = vec3(0.05, 0.1, 0.22);
-        color = mix(color, vec3(0.12, 0.38, 0.65), 0.32 + 0.16 * sin(2.0 * u_scroll_progress + 1.2));
-        color += vec3(0.08, 0.15, 0.25) * sin(2.0 * u_scroll_progress + 1.5);
+        color = vec3(0.5, 0.15, 0.65);
+        color = mix(color, vec3(0.02, 0.7, 0.9), 0.32 + 0.16 * sin(2.0 * u_scroll_progress + 1.2));
+        color += vec3(0.15, 0.0, 0.6) * sin(2.0 * u_scroll_progress + 1.5);
         color = color * noise;
         gl_FragColor = vec4(color, noise);
       }
@@ -141,7 +141,7 @@ const InteractiveNeuralVortex = ({
       pointer.current.x += (pointer.current.tX - pointer.current.x) * 0.2;
       pointer.current.y += (pointer.current.tY - pointer.current.y) * 0.2;
 
-      gl.uniform1f(uTime, performance.now());
+      gl.uniform1f(uTime, performance.now() % 3600000.0);
       gl.uniform2f(
         uPointerPosition,
         pointer.current.x / window.innerWidth,

@@ -90,9 +90,6 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-[0.25em] text-slate-100 select-none">
             TAHIR <span className="text-sky-400 font-black">AZEEM</span>
           </h1>
-          <div className="mt-2 text-[9px] md:text-[10px] font-mono text-slate-500 tracking-[0.2em] uppercase opacity-70">
-            Portfolio v2.0
-          </div>
         </div>
 
         {/* Minimalist Progress Container */}
