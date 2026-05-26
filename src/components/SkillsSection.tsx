@@ -15,7 +15,7 @@ const SkillsSection = () => {
 
     gsap.fromTo(
       ".skill-heading",
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
@@ -29,8 +29,9 @@ const SkillsSection = () => {
 
     gsap.fromTo(
       ".skill-pill",
-      { scale: 0.8, opacity: 0 },
+      { y: -30, scale: 0.9, opacity: 0 },
       {
+        y: 0,
         scale: 1,
         opacity: 1,
         stagger: 0.05,

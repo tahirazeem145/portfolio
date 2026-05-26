@@ -18,7 +18,7 @@ const AboutSection = () => {
     // Heading animation
     gsap.fromTo(
       headingRef.current,
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
@@ -34,7 +34,7 @@ const AboutSection = () => {
     // Content cards animation staggered
     gsap.fromTo(
       ".about-item",
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
         y: 0,
         opacity: 1,

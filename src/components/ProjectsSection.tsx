@@ -106,7 +106,7 @@ const ProjectsSection = () => {
 
     gsap.fromTo(
       ".project-heading",
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
@@ -120,7 +120,7 @@ const ProjectsSection = () => {
 
     gsap.fromTo(
       ".project-card",
-      { y: 100, opacity: 0 },
+      { y: -70, opacity: 0 },
       {
         y: 0,
         opacity: 1,

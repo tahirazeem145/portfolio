@@ -15,7 +15,7 @@ const ContactSection = () => {
 
     gsap.fromTo(
       ".contact-reveal",
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
         y: 0,
         opacity: 1,

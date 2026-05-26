@@ -14,7 +14,7 @@ const AchievementsSection = () => {
 
     gsap.fromTo(
       ".ach-heading",
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
@@ -28,7 +28,7 @@ const AchievementsSection = () => {
 
     gsap.fromTo(
       ".ach-card",
-      { scale: 0.9, opacity: 0, y: 50 },
+      { scale: 0.9, opacity: 0, y: -50 },
       {
         scale: 1,
         opacity: 1,

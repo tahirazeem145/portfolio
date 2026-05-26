@@ -14,7 +14,7 @@ const ExperienceSection = () => {
 
     gsap.fromTo(
       ".exp-heading",
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
@@ -28,9 +28,9 @@ const ExperienceSection = () => {
 
     gsap.fromTo(
       ".exp-card",
-      { x: -50, opacity: 0 },
+      { y: -50, opacity: 0 },
       {
-        x: 0,
+        y: 0,
         opacity: 1,
         stagger: 0.2,
         duration: 1,
