@@ -14,6 +14,14 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
   const [visualProgress, setVisualProgress] = useState(0);
   const [canExit, setCanExit] = useState(false);
 
+  const progressRef = useRef(progress);
+  const isLoadedRef = useRef(isLoaded);
+
+  useEffect(() => {
+    progressRef.current = progress;
+    isLoadedRef.current = isLoaded;
+  }, [progress, isLoaded]);
+
   // Smooth, snappy loading animation logic
   useEffect(() => {
     let currentProgress = 0;
@@ -22,14 +30,14 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
     const animateProgress = () => {
       // If assets are loaded, we can move faster to 100%
       // Otherwise, interpolate smoothly toward the target (progress, max 99 until loaded)
-      const target = isLoaded ? 100 : Math.min(progress, 99);
+      const target = isLoadedRef.current ? 100 : Math.min(progressRef.current, 99);
       
       if (currentProgress < target) {
         // Calculate dynamic increment for a smooth ease-out feel
         const diff = target - currentProgress;
         // In case of instant load (cached), we want it to animate smoothly over ~1.2s
         // 100% / (60 frames/sec * 1.2s) = ~1.4% increment per frame
-        const increment = isLoaded ? Math.max(diff * 0.12, 1.8) : diff * 0.08;
+        const increment = isLoadedRef.current ? Math.max(diff * 0.12, 1.8) : Math.max(diff * 0.08, 0.2);
         currentProgress = Math.min(currentProgress + increment, target);
         setVisualProgress(currentProgress);
       }
@@ -46,7 +54,7 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [progress, isLoaded]);
+  }, []);
 
   // Snappier, premium transition exit
   useEffect(() => {

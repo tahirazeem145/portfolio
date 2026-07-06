@@ -11,24 +11,25 @@ const SmoothScroll = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      duration: 1.8, // Increased for ultra-smooth feel
+      duration: 1.2, // Standard responsiveness (avoids floaty delay on trackpads/laptops)
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.8, // Slightly less sensitive for more control
+      wheelMultiplier: 1.0,
       touchMultiplier: 1.5,
       infinite: false,
-      syncTouch: true, // Crucial for mobile scroll sync
+      // Omit/disable syncTouch to let mobile browsers run native, hardware-accelerated scrolling
     });
 
     // Connect Lenis to ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Sync with GSAP Ticker
-    gsap.ticker.add((time) => {
+    // Sync with GSAP Ticker using a named reference to prevent memory leaks
+    const updateLenis = (time: number) => {
       lenis.raf(time * 1000); // gsap.ticker gives seconds, lenis wants ms
-    });
+    };
+    gsap.ticker.add(updateLenis);
 
     // Disable gsap lag smoothing for better sync
     gsap.ticker.lagSmoothing(0);
@@ -44,9 +45,7 @@ const SmoothScroll = () => {
     return () => {
       clearTimeout(timeoutId);
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(updateLenis);
     };
   }, []);
 

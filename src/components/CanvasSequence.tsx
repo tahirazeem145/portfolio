@@ -75,6 +75,11 @@ const CanvasSequence = () => {
         }
       });
 
+      // Explicitly sort and refresh ScrollTrigger so downstream elements (like Projects)
+      // recalculate their trigger points with the new 400% height pin spacer.
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+
       function renderFrame(index: number) {
         if (!canvas || !context || !images[index]) return;
 
