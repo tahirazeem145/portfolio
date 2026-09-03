@@ -2,11 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 interface PreloaderProps {
-  progress: number;
-  isLoaded: boolean;
+  progress?: number;
+  isLoaded?: boolean;
+  duration?: number; // total duration in seconds (default: 3)
+  onComplete?: () => void;
 }
 
-const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
+const Preloader: React.FC<PreloaderProps> = ({ 
+  progress = 0, 
+  isLoaded = false,
+  duration = 3,
+  onComplete
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -22,59 +29,67 @@ const Preloader: React.FC<PreloaderProps> = ({ progress, isLoaded }) => {
     isLoadedRef.current = isLoaded;
   }, [progress, isLoaded]);
 
-  // Smooth, snappy loading animation logic
+  // Precise, smooth 3-second loading animation logic
   useEffect(() => {
-    let currentProgress = 0;
+    const startTime = performance.now();
+    // Exit transition takes 0.7s, so progress counts up to 100% over the remaining time
+    const progressDuration = Math.max(800, (duration - 0.7) * 1000);
     let animationFrameId: number;
 
-    const animateProgress = () => {
-      // If assets are loaded, we can move faster to 100%
-      // Otherwise, interpolate smoothly toward the target (progress, max 99 until loaded)
-      const target = isLoadedRef.current ? 100 : Math.min(progressRef.current, 99);
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / progressDuration);
       
-      if (currentProgress < target) {
-        // Calculate dynamic increment for a smooth ease-out feel
-        const diff = target - currentProgress;
-        // In case of instant load (cached), we want it to animate smoothly over ~1.2s
-        // 100% / (60 frames/sec * 1.2s) = ~1.4% increment per frame
-        const increment = isLoadedRef.current ? Math.max(diff * 0.12, 1.8) : Math.max(diff * 0.08, 0.2);
-        currentProgress = Math.min(currentProgress + increment, target);
-        setVisualProgress(currentProgress);
-      }
+      // Smooth natural ease-out cubic curve
+      const easedTime = 1 - Math.pow(1 - t, 3);
+      const timePercent = easedTime * 100;
+      
+      // Merge with real asset loading progress if available
+      const assetPercent = progressRef.current || 0;
+      const currentVal = Math.min(100, Math.max(timePercent, isLoadedRef.current ? 100 : assetPercent * 0.9));
+      
+      setVisualProgress(currentVal);
 
-      if (currentProgress >= 100) {
+      if (elapsed >= progressDuration || currentVal >= 100) {
+        setVisualProgress(100);
         setCanExit(true);
       } else {
-        animationFrameId = requestAnimationFrame(animateProgress);
+        animationFrameId = requestAnimationFrame(animate);
       }
     };
 
-    animationFrameId = requestAnimationFrame(animateProgress);
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [duration]);
 
-  // Snappier, premium transition exit
+  // Smooth, premium exit transition timed to finish at exactly 3 seconds
   useEffect(() => {
     if (canExit && containerRef.current) {
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({
+        onComplete: () => {
+          if (containerRef.current) {
+            containerRef.current.style.display = "none";
+          }
+          if (onComplete) onComplete();
+        }
+      });
       
       tl.to(contentRef.current, {
-        y: -40,
+        y: -30,
         opacity: 0,
-        duration: 0.8,
-        ease: "power4.in"
+        duration: 0.35,
+        ease: "power2.in"
       })
       .to(containerRef.current, {
         clipPath: "inset(0 0 100% 0)",
-        duration: 1.2,
-        ease: "expo.inOut"
-      }, "-=0.4")
-      .set(containerRef.current, { display: "none" });
+        duration: 0.55,
+        ease: "power4.inOut"
+      }, "-=0.2");
     }
-  }, [canExit]);
+  }, [canExit, onComplete]);
 
   return (
     <div 

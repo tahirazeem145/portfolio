@@ -18,7 +18,9 @@ const CanvasSequence = () => {
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(0);
 
-  // Preload images
+  const [initialFrameReady, setInitialFrameReady] = useState(false);
+
+  // Preload images progressively
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
@@ -30,6 +32,13 @@ const CanvasSequence = () => {
       img.onload = () => {
         loadedCount++;
         setImagesLoaded(loadedCount);
+        if (i === 1) {
+          setInitialFrameReady(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++;
+        setImagesLoaded(loadedCount);
       };
       loadedImages.push(img);
     }
@@ -38,13 +47,47 @@ const CanvasSequence = () => {
 
   useGSAP(
     () => {
-      if (imagesLoaded < FRAME_COUNT || !canvasRef.current) return;
+      if (!canvasRef.current) return;
 
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d", { alpha: false }); // Optimization
       if (!context) return;
 
       const animationState = { frame: 0 };
+
+      function renderFrame(index: number) {
+        if (!canvas || !context) return;
+
+        // Try exact frame, or fallback to closest loaded frame
+        let img = images[index];
+        if (!img || !img.complete || img.naturalWidth === 0) {
+          // Search backwards
+          for (let i = index - 1; i >= 0; i--) {
+            if (images[i] && images[i].complete && images[i].naturalWidth !== 0) {
+              img = images[i];
+              break;
+            }
+          }
+          // Search forwards if still not found
+          if (!img || !img.complete || img.naturalWidth === 0) {
+            for (let i = index + 1; i < FRAME_COUNT; i++) {
+              if (images[i] && images[i].complete && images[i].naturalWidth !== 0) {
+                img = images[i];
+                break;
+              }
+            }
+          }
+        }
+
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+
+        // Draw image keeping aspect ratio (cover style)
+        const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+        const x = canvas.width / 2 - (img.width / 2) * scale;
+        const y = canvas.height / 2 - (img.height / 2) * scale;
+
+        context.drawImage(img, x, y, img.width * scale, img.height * scale);
+      }
 
       // Set initial canvas size correctly
       const resizeCanvas = () => {
@@ -55,8 +98,9 @@ const CanvasSequence = () => {
         renderFrame(animationState.frame);
       };
 
-      // Initial size
+      // Initial size and initial render
       resizeCanvas();
+      renderFrame(0);
 
       // Set up ScrollTrigger
       const st = ScrollTrigger.create({
@@ -80,19 +124,6 @@ const CanvasSequence = () => {
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
 
-      function renderFrame(index: number) {
-        if (!canvas || !context || !images[index]) return;
-
-        const img = images[index];
-
-        // Draw image keeping aspect ratio (cover style)
-        const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-        const x = canvas.width / 2 - (img.width / 2) * scale;
-        const y = canvas.height / 2 - (img.height / 2) * scale;
-
-        context.drawImage(img, x, y, img.width * scale, img.height * scale);
-      }
-
       // Handle resize using ScrollTrigger's refresh for better sync
       ScrollTrigger.addEventListener("refresh", resizeCanvas);
       window.addEventListener("resize", resizeCanvas);
@@ -103,7 +134,7 @@ const CanvasSequence = () => {
         window.removeEventListener("resize", resizeCanvas);
       };
     },
-    { dependencies: [imagesLoaded], scope: containerRef }
+    { dependencies: [initialFrameReady, images.length], scope: containerRef }
   );
 
   return (
@@ -111,6 +142,7 @@ const CanvasSequence = () => {
       <Preloader 
         progress={(imagesLoaded / FRAME_COUNT) * 100} 
         isLoaded={imagesLoaded === FRAME_COUNT} 
+        duration={3}
       />
 
       {/* Canvas */}
