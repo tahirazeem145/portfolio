@@ -231,7 +231,6 @@ const MarqueeItem = () => (
 
 export function CinematicFooter() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const giantTextRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
   const storyRef = useRef<HTMLDivElement>(null);
@@ -243,41 +242,25 @@ export function CinematicFooter() {
 
     // React strict mode compatible GSAP context cleanup
     const ctx = gsap.context(() => {
-      // Background Parallax
-      gsap.fromTo(
-        giantTextRef.current,
-        { y: "10vh", scale: 0.8, opacity: 0 },
-        {
-          y: "0vh",
-          scale: 1,
-          opacity: 1,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: "top 80%",
-            end: "bottom bottom",
-            scrub: 1,
-          },
-        }
-      );
-
       // Staggered Content Reveal
-      gsap.fromTo(
-        [headingRef.current, linksRef.current],
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: "top 40%",
-            end: "bottom bottom",
-            scrub: 1,
-          },
-        }
-      );
+      if (headingRef.current && linksRef.current) {
+        gsap.fromTo(
+          [headingRef.current, linksRef.current],
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: "top 80%",
+              end: "top 30%",
+              scrub: 1,
+            },
+          }
+        );
+      }
 
       // Storytelling Reveal
       if (storyRef.current) {
@@ -315,27 +298,12 @@ export function CinematicFooter() {
           duration: 1.5,
           ease: "power2.out"
         });
-
-        // 3D Parallax and Shadow for TAHIR text
-        if (giantTextRef.current) {
-          gsap.to(giantTextRef.current, {
-            x: xPos * 40,
-            y: yPos * 20,
-            rotationY: xPos * 15,
-            rotationX: yPos * -15,
-            filter: `drop-shadow(${xPos * -30}px ${yPos * -30}px 15px rgba(59, 130, 246, 0.4))`,
-            duration: 1.2,
-            ease: "power3.out"
-          });
-        }
       };
 
       if (wrapperRef.current) {
         wrapperRef.current.addEventListener("mousemove", handleFooterHover);
       }
       
-      // We don't need an explicit removeEventListener because gsap.context() 
-      // can automatically revert standard things, but for standard DOM events:
       return () => {
         wrapperRef.current?.removeEventListener("mousemove", handleFooterHover);
       };
@@ -357,9 +325,9 @@ export function CinematicFooter() {
       */}
       <div
         ref={wrapperRef}
-        className="relative w-full z-30"
+        className="relative w-full z-30 bg-[#050505]"
       >
-        <footer className="relative flex flex-col justify-between overflow-hidden bg-[#050505] text-white cinematic-footer-wrapper border-t border-white/5 pt-24 min-h-[80vh]">
+        <footer className="relative flex flex-col justify-between overflow-hidden bg-[#050505] text-white cinematic-footer-wrapper border-t border-white/5 pt-24 pb-8 min-h-[70vh]">
           
           {/* Ambient Light & Grid Background */}
           <div className="footer-aurora absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 animate-footer-breathe rounded-[50%] blur-[80px] pointer-events-none z-0" />

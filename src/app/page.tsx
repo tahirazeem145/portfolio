@@ -23,7 +23,7 @@ export default function Home() {
       {/* Global Background */}
       <InteractiveNeuralVortex />
 
-      <main className="relative z-10 w-full text-white selection:bg-blue-500 selection:text-white pb-24">
+      <main className="relative z-10 w-full text-white selection:bg-blue-500 selection:text-white pb-0">
         {/* Fixed UI Elements */}
         <ScrollProgress />
         <div className="pointer-events-auto">

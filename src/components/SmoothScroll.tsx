@@ -34,16 +34,30 @@ const SmoothScroll = () => {
     // Disable gsap lag smoothing for better sync
     gsap.ticker.lagSmoothing(0);
 
+    // Sync Lenis resize whenever ScrollTrigger recalculates layout
+    const handleRefresh = () => lenis.resize();
+    ScrollTrigger.addEventListener("refresh", handleRefresh);
+
     // Initial refresh
     ScrollTrigger.refresh();
 
-    // Delayed refresh to handle dynamic content layout
-    const timeoutId = setTimeout(() => {
+    // Delayed refresh to handle dynamic content & preloader settle (3s)
+    const timeoutId1 = setTimeout(() => {
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
-    }, 500);
+      lenis.resize();
+    }, 1000);
+
+    const timeoutId2 = setTimeout(() => {
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+      lenis.resize();
+    }, 3200);
 
     return () => {
-      clearTimeout(timeoutId);
+      clearTimeout(timeoutId1);
+      clearTimeout(timeoutId2);
+      ScrollTrigger.removeEventListener("refresh", handleRefresh);
       lenis.destroy();
       gsap.ticker.remove(updateLenis);
     };
