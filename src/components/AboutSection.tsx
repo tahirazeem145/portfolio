@@ -52,7 +52,7 @@ const AboutSection = () => {
   const quickInfo = [
     { icon: <GraduationCap size={24} className="text-blue-400" />, label: "Degree", value: "B.E. Computer Science" },
     { icon: <Building size={24} className="text-purple-400" />, label: "College", value: "JJCET, Trichy" },
-    { icon: <Calendar size={24} className="text-blue-400" />, label: "Year", value: "2nd Year" },
+    { icon: <Calendar size={24} className="text-blue-400" />, label: "Year", value: "3rd Year" },
     { icon: <MapPin size={24} className="text-purple-400" />, label: "Location", value: "Trichy, Tamil Nadu" },
     { icon: <Briefcase size={24} className="text-blue-400" />, label: "Status", value: "Open to Internships" },
   ];
