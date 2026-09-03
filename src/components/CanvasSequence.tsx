@@ -15,45 +15,55 @@ const FRAME_COUNT = 108;
 const CanvasSequence = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(0);
+  const [isReady, setIsReady] = useState(false);
 
-  const [initialFrameReady, setInitialFrameReady] = useState(false);
-
-  // Preload images progressively
+  // Preload images
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
-    let loadedCount = 0;
+    let count = 0;
 
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
       const paddedIndex = i.toString().padStart(3, "0");
       img.src = `/frames/ezgif-frame-${paddedIndex}.png`;
       img.onload = () => {
-        loadedCount++;
-        setImagesLoaded(loadedCount);
-        if (i === 1) {
-          setInitialFrameReady(true);
+        count++;
+        setImagesLoaded(count);
+        if (count >= FRAME_COUNT) {
+          setIsReady(true);
         }
       };
       img.onerror = () => {
-        loadedCount++;
-        setImagesLoaded(loadedCount);
+        count++;
+        setImagesLoaded(count);
+        if (count >= FRAME_COUNT) {
+          setIsReady(true);
+        }
       };
       loadedImages.push(img);
     }
-    setImages(loadedImages);
+    imagesRef.current = loadedImages;
+
+    // Safety fallback: ensure ready within 2.3s so it syncs seamlessly with the 3s loader
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 2300);
+
+    return () => clearTimeout(timer);
   }, []);
 
   useGSAP(
     () => {
-      if (!canvasRef.current) return;
+      if (!isReady || !canvasRef.current) return;
 
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d", { alpha: false }); // Optimization
       if (!context) return;
 
       const animationState = { frame: 0 };
+      const images = imagesRef.current;
 
       function renderFrame(index: number) {
         if (!canvas || !context) return;
@@ -93,6 +103,7 @@ const CanvasSequence = () => {
       const resizeCanvas = () => {
         if (!canvas) return;
         const { width, height } = canvas.getBoundingClientRect();
+        if (width === 0 || height === 0) return;
         canvas.width = width * window.devicePixelRatio;
         canvas.height = height * window.devicePixelRatio;
         renderFrame(animationState.frame);
@@ -111,7 +122,10 @@ const CanvasSequence = () => {
         scrub: 2, 
         anticipatePin: 1,
         onUpdate: (self) => {
-          const newFrame = Math.floor(self.progress * (FRAME_COUNT - 1));
+          const newFrame = Math.min(
+            FRAME_COUNT - 1,
+            Math.floor(self.progress * FRAME_COUNT)
+          );
           if (newFrame !== animationState.frame) {
             animationState.frame = newFrame;
             renderFrame(newFrame);
@@ -119,8 +133,7 @@ const CanvasSequence = () => {
         }
       });
 
-      // Explicitly sort and refresh ScrollTrigger so downstream elements (like Projects)
-      // recalculate their trigger points with the new 400% height pin spacer.
+      // Explicitly sort and refresh ScrollTrigger
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
 
@@ -134,7 +147,7 @@ const CanvasSequence = () => {
         window.removeEventListener("resize", resizeCanvas);
       };
     },
-    { dependencies: [initialFrameReady, images.length], scope: containerRef }
+    { dependencies: [isReady], scope: containerRef }
   );
 
   return (
