@@ -5,8 +5,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail } from "lucide-react";
-import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
-
 const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -15,16 +13,17 @@ const ContactSection = () => {
 
     gsap.fromTo(
       ".contact-reveal",
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        stagger: 0.15,
-        duration: 0.8,
+        stagger: 0.12,
+        duration: 0.9,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 82%",
         },
       }
     );

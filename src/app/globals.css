@@ -41,11 +41,17 @@
 
 @layer base {
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
     width: 100%;
     background-color: #08090d;
     color: white;
+  }
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
   }
   @media (max-width: 640px) {
     html {
@@ -60,6 +66,12 @@
 }
 
 @layer utilities {
+  .smooth-gpu {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
   .glass {
     @apply bg-black/10 backdrop-blur-lg border border-white/10 shadow-xl;
   }

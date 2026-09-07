@@ -14,30 +14,33 @@ const ExperienceSection = () => {
 
     gsap.fromTo(
       ".exp-heading",
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: 0.9,
+        ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 82%",
         },
       }
     );
 
     gsap.fromTo(
       ".exp-card",
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        stagger: 0.2,
-        duration: 1,
+        stagger: 0.15,
+        duration: 0.9,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 60%",
+          start: "top 75%",
         },
       }
     );

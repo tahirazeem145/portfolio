@@ -96,16 +96,19 @@ const CanvasSequence = () => {
         const x = canvas.width / 2 - (img.width / 2) * scale;
         const y = canvas.height / 2 - (img.height / 2) * scale;
 
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
         context.drawImage(img, x, y, img.width * scale, img.height * scale);
       }
 
-      // Set initial canvas size correctly
+      // Set initial canvas size correctly with balanced DPR for optimal 60fps render
       const resizeCanvas = () => {
         if (!canvas) return;
         const { width, height } = canvas.getBoundingClientRect();
         if (width === 0 || height === 0) return;
-        canvas.width = width * window.devicePixelRatio;
-        canvas.height = height * window.devicePixelRatio;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
         renderFrame(animationState.frame);
       };
 
@@ -113,18 +116,18 @@ const CanvasSequence = () => {
       resizeCanvas();
       renderFrame(0);
 
-      // Set up ScrollTrigger
+      // Set up ScrollTrigger with ultra-smooth responsive scrub synced to Lenis
       const st = ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top top",
         end: "+=400%", // 4 screens of scrolling
         pin: true,
-        scrub: 2, 
+        scrub: 0.7, // Silky smooth tracking with Lenis inertia, eliminating 2s float
         anticipatePin: 1,
         onUpdate: (self) => {
           const newFrame = Math.min(
             FRAME_COUNT - 1,
-            Math.floor(self.progress * FRAME_COUNT)
+            Math.max(0, Math.round(self.progress * (FRAME_COUNT - 1)))
           );
           if (newFrame !== animationState.frame) {
             animationState.frame = newFrame;

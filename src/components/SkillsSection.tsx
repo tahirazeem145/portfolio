@@ -4,8 +4,6 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
-
 const SkillsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const barsRef = useRef<HTMLDivElement>(null);
@@ -15,30 +13,34 @@ const SkillsSection = () => {
 
     gsap.fromTo(
       ".skill-heading",
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: 0.9,
+        ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 82%",
         },
       }
     );
 
     gsap.fromTo(
       ".skill-pill",
-      { y: -30, scale: 0.9, opacity: 0 },
+      { y: 20, scale: 0.95, opacity: 0 },
       {
         y: 0,
         scale: 1,
         opacity: 1,
-        stagger: 0.05,
-        ease: "back.out(1.5)",
+        stagger: 0.03,
+        duration: 0.7,
+        ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 60%",
+          start: "top 72%",
         },
       }
     );
@@ -51,11 +53,11 @@ const SkillsSection = () => {
         { width: "0%" },
         {
           width: width,
-          duration: 1.5,
+          duration: 1.3,
           ease: "power3.out",
           scrollTrigger: {
             trigger: bar,
-            start: "top 85%",
+            start: "top 88%",
           },
         }
       );

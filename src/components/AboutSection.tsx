@@ -5,8 +5,6 @@ import { GraduationCap, MapPin, Building, Briefcase, Calendar } from "lucide-rea
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
-
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
@@ -15,35 +13,37 @@ const AboutSection = () => {
   useGSAP(() => {
     if (!sectionRef.current) return;
 
-    // Heading animation
+    // Heading animation — smooth upward reveal
     gsap.fromTo(
       headingRef.current,
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: 0.9,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 82%",
         },
       }
     );
 
-    // Content cards animation staggered
+    // Content cards animation staggered smoothly
     gsap.fromTo(
       ".about-item",
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         stagger: 0.1,
-        duration: 0.8,
+        duration: 0.9,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: contentRef.current,
-          start: "top 80%",
+          start: "top 82%",
         },
       }
     );

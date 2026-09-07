@@ -180,15 +180,16 @@ const ProjectsSection = () => {
 
     gsap.fromTo(
       headingRef.current,
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         duration: 0.9,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: headingRef.current,
-          start: "top 80%",
+          start: "top 82%",
         },
       }
     );

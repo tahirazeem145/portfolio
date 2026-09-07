@@ -256,7 +256,7 @@ export function CinematicFooter() {
               trigger: wrapperRef.current,
               start: "top 80%",
               end: "top 30%",
-              scrub: 1,
+              scrub: 0.6,
             },
           }
         );
@@ -270,13 +270,13 @@ export function CinematicFooter() {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.3,
+            stagger: 0.2,
             ease: "power2.out",
             scrollTrigger: {
               trigger: storyRef.current,
               start: "top 85%",
               end: "bottom 50%",
-              scrub: 1,
+              scrub: 0.6,
             },
           }
         );

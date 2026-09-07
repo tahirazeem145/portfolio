@@ -114,7 +114,7 @@ export const RadialScrollGallery = forwardRef<
     const currentRadius   = useResponsiveValue(baseRadius, mobileRadius);
     const circleDiameter  = currentRadius * 2;
     const maskPercent     = useResponsiveValue(30, 10); // Fade only bottom 10% on mobile, 30% on desktop
-    const currentScrub    = useResponsiveValue(1, 0.2); // Snappier, direct scroll response on mobile (0.2s delay vs 1s on desktop)
+    const currentScrub    = useResponsiveValue(0.5, 0.2); // Buttery smooth, responsive rotation synced with Lenis
 
     const { visibleDecimal, hiddenDecimal } = useMemo(() => {
       const clamped = Math.max(10, Math.min(100, visiblePercentage));

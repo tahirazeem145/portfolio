@@ -14,30 +14,34 @@ const AchievementsSection = () => {
 
     gsap.fromTo(
       ".ach-heading",
-      { y: -50, opacity: 0 },
+      { y: 35, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: 0.9,
+        ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 82%",
         },
       }
     );
 
     gsap.fromTo(
       ".ach-card",
-      { scale: 0.9, opacity: 0, y: -50 },
+      { y: 35, scale: 0.97, opacity: 0 },
       {
+        y: 0,
         scale: 1,
         opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "elastic.out(1, 0.7)",
+        stagger: 0.15,
+        duration: 0.9,
+        ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 76%",
         },
       }
     );

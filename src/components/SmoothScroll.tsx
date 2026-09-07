@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,16 +11,15 @@ const SmoothScroll = () => {
     // Register ScrollTrigger if not already registered
     gsap.registerPlugin(ScrollTrigger);
 
+    // Initialize Lenis with ultra-smooth lerp interpolation
     const lenis = new Lenis({
-      duration: 1.2, // Standard responsiveness (avoids floaty delay on trackpads/laptops)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
+      lerp: 0.08, // Buttery smooth linear interpolation glide (Awwwards standard)
       smoothWheel: true,
-      wheelMultiplier: 1.0,
+      wheelMultiplier: 0.95, // Slightly dampened for silky smooth, controlled gliding
       touchMultiplier: 1.5,
       infinite: false,
-      // Omit/disable syncTouch to let mobile browsers run native, hardware-accelerated scrolling
+      anchors: true, // Smoothly glide to anchor sections like #about, #projects
+      autoResize: true,
     });
 
     // Connect Lenis to ScrollTrigger
@@ -31,7 +31,7 @@ const SmoothScroll = () => {
     };
     gsap.ticker.add(updateLenis);
 
-    // Disable gsap lag smoothing for better sync
+    // Disable gsap lag smoothing for locked 1:1 synchronization
     gsap.ticker.lagSmoothing(0);
 
     // Sync Lenis resize whenever ScrollTrigger recalculates layout

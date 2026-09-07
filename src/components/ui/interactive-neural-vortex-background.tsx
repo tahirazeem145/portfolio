@@ -124,7 +124,7 @@ const InteractiveNeuralVortex = ({
     const uScrollProgress = gl.getUniformLocation(program, "u_scroll_progress");
 
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       const width = position === "fixed" ? window.innerWidth : canvasEl.parentElement?.clientWidth || window.innerWidth;
       const height = position === "fixed" ? window.innerHeight : canvasEl.parentElement?.clientHeight || window.innerHeight;
       
