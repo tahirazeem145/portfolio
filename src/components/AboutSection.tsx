@@ -26,6 +26,7 @@ const AboutSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 82%",
+          once: true,
         },
       }
     );
@@ -44,6 +45,7 @@ const AboutSection = () => {
         scrollTrigger: {
           trigger: contentRef.current,
           start: "top 82%",
+          once: true,
         },
       }
     );

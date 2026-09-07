@@ -51,8 +51,8 @@ const InteractiveNeuralVortex = ({
         vec2 sine_acc = vec2(0.);
         vec2 res = vec2(0.);
         float scale = 8.;
-        int iterations = 20;
-        for (int j = 0; j < 20; j++) {
+        int iterations = 10;
+        for (int j = 0; j < 10; j++) {
           uv = rotate(uv, 1.);
           sine_acc = rotate(sine_acc, 1.);
           vec2 layer = uv * scale + float(j) + sine_acc - t;
@@ -124,12 +124,12 @@ const InteractiveNeuralVortex = ({
     const uScrollProgress = gl.getUniformLocation(program, "u_scroll_progress");
 
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.0);
       const width = position === "fixed" ? window.innerWidth : canvasEl.parentElement?.clientWidth || window.innerWidth;
       const height = position === "fixed" ? window.innerHeight : canvasEl.parentElement?.clientHeight || window.innerHeight;
       
-      canvasEl.width = width * dpr;
-      canvasEl.height = height * dpr;
+      canvasEl.width = Math.round(width * dpr);
+      canvasEl.height = Math.round(height * dpr);
       gl.viewport(0, 0, canvasEl.width, canvasEl.height);
       gl.uniform1f(uRatio, canvasEl.width / canvasEl.height);
     };

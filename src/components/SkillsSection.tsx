@@ -23,6 +23,7 @@ const SkillsSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 82%",
+          once: true,
         },
       }
     );
@@ -41,6 +42,7 @@ const SkillsSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 72%",
+          once: true,
         },
       }
     );
@@ -58,6 +60,7 @@ const SkillsSection = () => {
           scrollTrigger: {
             trigger: bar,
             start: "top 88%",
+            once: true,
           },
         }
       );

@@ -19,29 +19,37 @@ const CanvasSequence = () => {
   const [imagesLoaded, setImagesLoaded] = useState(0);
   const [isReady, setIsReady] = useState(false);
 
-  // Preload images
+  // Preload and decode images asynchronously off the main thread
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
     let count = 0;
+
+    const handleSingleLoaded = () => {
+      count++;
+      setImagesLoaded(count);
+      if (count >= FRAME_COUNT) {
+        setIsReady(true);
+      }
+    };
 
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
       const paddedIndex = i.toString().padStart(3, "0");
       img.src = `/frames/ezgif-frame-${paddedIndex}.png`;
-      img.onload = () => {
-        count++;
-        setImagesLoaded(count);
-        if (count >= FRAME_COUNT) {
-          setIsReady(true);
-        }
+
+      let resolved = false;
+      const onDone = () => {
+        if (resolved) return;
+        resolved = true;
+        handleSingleLoaded();
       };
-      img.onerror = () => {
-        count++;
-        setImagesLoaded(count);
-        if (count >= FRAME_COUNT) {
-          setIsReady(true);
-        }
-      };
+
+      img.onload = onDone;
+      img.onerror = onDone;
+      if (typeof img.decode === "function") {
+        img.decode().then(onDone).catch(onDone);
+      }
+
       loadedImages.push(img);
     }
     imagesRef.current = loadedImages;
@@ -62,7 +70,8 @@ const CanvasSequence = () => {
       const context = canvas.getContext("2d", { alpha: false }); // Optimization
       if (!context) return;
 
-      const animationState = { frame: 0 };
+      const playhead = { frame: 0 };
+      let lastDrawnFrame = -1;
       const images = imagesRef.current;
 
       function renderFrame(index: number) {
@@ -93,47 +102,60 @@ const CanvasSequence = () => {
 
         // Draw image keeping aspect ratio (cover style)
         const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-        const x = canvas.width / 2 - (img.width / 2) * scale;
-        const y = canvas.height / 2 - (img.height / 2) * scale;
+        const x = (canvas.width - img.width * scale) * 0.5;
+        const y = (canvas.height - img.height * scale) * 0.5;
 
-        context.imageSmoothingEnabled = true;
-        context.imageSmoothingQuality = "high";
         context.drawImage(img, x, y, img.width * scale, img.height * scale);
       }
 
       // Set initial canvas size correctly with balanced DPR for optimal 60fps render
       const resizeCanvas = () => {
-        if (!canvas) return;
+        if (!canvas || !context) return;
         const { width, height } = canvas.getBoundingClientRect();
         if (width === 0 || height === 0) return;
         const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        renderFrame(animationState.frame);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+
+        // Configure smoothing once on resize, not on every frame
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "medium";
+
+        renderFrame(Math.round(playhead.frame));
       };
 
       // Initial size and initial render
       resizeCanvas();
       renderFrame(0);
 
-      // Set up ScrollTrigger with ultra-smooth responsive scrub synced to Lenis
-      const st = ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=400%", // 4 screens of scrolling
-        pin: true,
-        scrub: 0.7, // Silky smooth tracking with Lenis inertia, eliminating 2s float
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const newFrame = Math.min(
+      // Dedicated GSAP tween on playhead object with responsive scrub interpolation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=350%", // 3.5 screens of scrolling for swift, fluid sequence
+          pin: true,
+          scrub: 0.35, // Responsive scrub that actively interpolates playhead on every RAF tick
+          anticipatePin: 1,
+          fastScrollEnd: true,
+          preventOverlaps: true,
+        },
+      });
+
+      tl.to(playhead, {
+        frame: FRAME_COUNT - 1,
+        ease: "none",
+        duration: 1,
+        onUpdate: () => {
+          const frameIndex = Math.min(
             FRAME_COUNT - 1,
-            Math.max(0, Math.round(self.progress * (FRAME_COUNT - 1)))
+            Math.max(0, Math.round(playhead.frame))
           );
-          if (newFrame !== animationState.frame) {
-            animationState.frame = newFrame;
-            renderFrame(newFrame);
+          if (frameIndex !== lastDrawnFrame) {
+            lastDrawnFrame = frameIndex;
+            renderFrame(frameIndex);
           }
-        }
+        },
       });
 
       // Explicitly sort and refresh ScrollTrigger
@@ -145,7 +167,7 @@ const CanvasSequence = () => {
       window.addEventListener("resize", resizeCanvas);
 
       return () => {
-        st.kill();
+        tl.kill();
         ScrollTrigger.removeEventListener("refresh", resizeCanvas);
         window.removeEventListener("resize", resizeCanvas);
       };

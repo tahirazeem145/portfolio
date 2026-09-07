@@ -24,6 +24,7 @@ const AchievementsSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 82%",
+          once: true,
         },
       }
     );
@@ -42,6 +43,7 @@ const AchievementsSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 76%",
+          once: true,
         },
       }
     );

@@ -24,6 +24,7 @@ const ExperienceSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 82%",
+          once: true,
         },
       }
     );
@@ -41,6 +42,7 @@ const ExperienceSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
+          once: true,
         },
       }
     );

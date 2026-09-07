@@ -17,7 +17,7 @@ import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-b
 
 export default function Home() {
   return (
-    <div className="relative w-full min-h-screen font-sans overflow-x-hidden">
+    <div className="relative w-full min-h-screen font-sans overflow-x-clip">
       <SmoothScroll />
       
       {/* Global Background */}

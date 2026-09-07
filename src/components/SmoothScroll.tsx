@@ -13,9 +13,9 @@ const SmoothScroll = () => {
 
     // Initialize Lenis with ultra-smooth lerp interpolation
     const lenis = new Lenis({
-      lerp: 0.08, // Buttery smooth linear interpolation glide (Awwwards standard)
+      lerp: 0.09, // Buttery smooth linear interpolation glide
       smoothWheel: true,
-      wheelMultiplier: 0.95, // Slightly dampened for silky smooth, controlled gliding
+      wheelMultiplier: 1.0, // Natural 1:1 input glide response
       touchMultiplier: 1.5,
       infinite: false,
       anchors: true, // Smoothly glide to anchor sections like #about, #projects
@@ -31,8 +31,8 @@ const SmoothScroll = () => {
     };
     gsap.ticker.add(updateLenis);
 
-    // Disable gsap lag smoothing for locked 1:1 synchronization
-    gsap.ticker.lagSmoothing(0);
+    // Maintain intelligent lag smoothing so micro-frame dips are absorbed gracefully
+    gsap.ticker.lagSmoothing(500, 33);
 
     // Sync Lenis resize whenever ScrollTrigger recalculates layout
     const handleRefresh = () => lenis.resize();

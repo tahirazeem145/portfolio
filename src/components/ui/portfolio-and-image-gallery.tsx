@@ -189,6 +189,7 @@ export const RadialScrollGallery = forwardRef<
           );
 
           // Scroll-driven animation timeline that pins the gallery
+          let lastActive = -1;
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: pinRef.current,
@@ -197,6 +198,8 @@ export const RadialScrollGallery = forwardRef<
               end: `+=${scrollDuration}`,
               scrub: currentScrub,
               invalidateOnRefresh: true,
+              fastScrollEnd: true,
+              preventOverlaps: true,
               onUpdate: (self) => {
                 const count = childrenCount;
                 if (count === 0) return;
@@ -204,21 +207,26 @@ export const RadialScrollGallery = forwardRef<
                 // The card that is closest to the top of the wheel (270 degrees) is:
                 let active = Math.round(count * (0.75 - self.progress)) % count;
                 if (active < 0) active += count;
-                setScrollActiveIndex(active);
+                if (active !== lastActive) {
+                  lastActive = active;
+                  setScrollActiveIndex(active);
+                }
               },
             },
           });
 
-          // Rotate the wheel ring (ul) 360 degrees
+          // Rotate the wheel ring (ul) 360 degrees with GPU acceleration
           tl.to(listRef.current, {
             rotation: 360,
             ease: 'none',
+            force3D: true,
           }, 0); // start at time 0
 
           // Counter-rotate the cards (li children) -360 degrees to keep them upright
           tl.to(Array.from(listRef.current!.children), {
             rotation: -360,
             ease: 'none',
+            force3D: true,
           }, 0); // start at time 0
         }, pinRef);
 
